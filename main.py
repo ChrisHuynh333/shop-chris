@@ -10,12 +10,12 @@ import datetime
 
 app = Flask(__name__)
 # CSRF_TOKEN to use FlaskForms - stored as env variable
-app.config["SECRET_KEY"] = "try_without_env_key"
+app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY')
 # Enable Bootstrap for WTForms
 Bootstrap(app)
 
 # Enable SQL Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///store.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', "sqlite:///store.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
