@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid items-container">
+    <p>< <a class="link-unstyled black-hyperlink" href="{{ url_for('home') }}">Home</a> / All Items</p>
+    <h2>All items</h2>
+</div>
+
+<!--
+As mentioned in main.py, we use category_title specifically for the text on the webpage, and category as the
+variable to pass through the href. Because they're at the same index within their respective lists, we will iterate
+through one of the lists in the for loop, and then set index to get the variable at the same index of the other list.
+-->
+
+{% for category_title in category_titles %}
+{% set index = category_titles.index(category_title) %}
+<div class="container-fluid items-container">
+    <h3><a class="link-unstyled black-hyperlink" href="{{ url_for('products', category=categories[index]) }}">
+        {{ category_title }}</a></h3>
+</div>
+
+<hr class="hr-items">
+<form method="post">
+    <div class="container-fluid images-container">
+        <div class="row">
+            <!-- This will retrieve all items from a given category and display them on the webpage -->
+            {% for item in shopping_items %}
+            {% if item.category_title == category_title %}
+            <div class="col-lg-3 col-md-6 text-center">
+                 <a href="{{url_for('individual_product', category=item.category, item=item.name) }}">
+                    <img class="all-items-image-thumbnail" src="{{ url_for('static', filename=item.name+'.jpg') }}">
+                </a>
+                <h5 class="all-items-name">{{ item.name.title() }}</h5>
+                <h5 class="all-items-price">${{ "%.2f"|format(item.price) }}</h5>
+                <div>
+                <button type="submit" class="btn btn-outline-primary generic-button" name="add_button"
+                        value={{item.name}}>
+                    Add
+                </button>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</form>
+
+{% endfor %}
+{% endblock %}

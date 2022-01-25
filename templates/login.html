@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+
+<div class="container-fluid images-container">
+    <h2 class="login-header">
+        Welcome back!
+        <br>
+        Please log into your account.
+    </h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <p class="login-error">{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="col-lg-8 col-md-10 mx-auto content">
+        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+    </div>
+    <div class="need-account col-lg-8 col-md-10 mx-auto content">
+        <p>Need an account? <a href="{{ url_for('register') }}">Register Here</a></p>
+    </div>
+</div>
+
+{% endblock %}

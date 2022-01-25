@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container-fluid order-summary-heading">
+        <h2>Your Account</h2>
+    </div>
+
+    <div class="container-fluid order-summary">
+
+    </div>
+    <div class="container-fluid order-summary">
+        <h5 class="details-heading">Your Details: </h5>
+        <form action="{{ url_for('edit_account', user_id=user.id) }}" method="post">
+            <button type="submit" class="btn btn-outline-primary generic-button edit-button" name="edit_details_button"
+                    value={{ user.id }}>Edit Details</button>
+        </form>
+        <table class="table">
+            <tr>
+                <th scope="row">Name: </th>
+                <td>{{ user.name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Email: </th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <!--
+                I would normally not show the password, but for my portfolio, thought I'd highlight to show
+                hashing and salting of the password
+                -->
+                <th scope="row">Password: </th>
+                <td>{{ user.password[0:30] }}</td>
+            </tr>
+        </table>
+        <!-- The first for loop is to iterate through each available order based on the number of orders -->
+        {% for x in range(0, iterations) %}
+        <!--
+        For each iteration of the for loop (ie: for each order), we will set count equal to the length of the items for
+        each order. This allows us to be flexible in regard to each order having a different number of items.
+        For example, if the first order has only two items and the second order has four items, we will set count equal
+        to 2 and then to 4, respectively, and use it below
+        -->
+        {% set count = items[x]|length %}
+        <div>
+            <h5 class="order-number-header">Order Number: #{{ id[x] }}</h5>
+            <h5 class="account-summary-price">Total Price: ${{ total_prices[x]}}</h5>
+        </div>
+        <table class="table order-summary-table">
+            <thead>
+                <th scope="col">Item</th>
+                <th scope="col">Quantity</th>
+            </thead>
+            <!-- We use count to iterate through each item and its respective quantity, as mentioned above. -->
+            {% for y in range(0, count) %}
+            <tbody>
+                <tr>
+                    <!--
+                    Because items and quantities are each a list of lists, x is determining which order we are on
+                    (ie: which list within the list we're using), and we go through each item within that order with y
+                    to display each item and quantity within the order
+                    -->
+                    <td>{{ items[x][y].title() }}</td>
+                    <td>{{ quantities[x][y] }}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        {% endfor %}
+    </div>
+    {% endblock %}

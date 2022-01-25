@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+
+<div class="container-fluid images-container">
+    <h4 class="login-header">
+        Change your name or email
+    </h4>
+    <div class="col-lg-8 col-md-10 mx-auto content">
+            {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+    </div>
+</div>
+{% endblock %}

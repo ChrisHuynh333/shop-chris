@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid items-container cart-items-container">
+    <h2>Your order has successfully processed. Your order number is #{{ order_num }}.</h2>
+    <h2>Click <a class="link-unstyled black-hyperlink" href="{{ url_for('account', user_id=user.id) }}">HERE</a>
+        to view your order.</h2>
+</div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if cart_size == 0 %}
+<div class="container-fluid items-container">
+    <h2>It doesn't seem like anything has been added to your cart.</h2>
+    <h2>Click <a class="link-unstyled black-hyperlink" href="{{ url_for('all_items') }}">HERE</a>
+        to begin shopping.</h2>
+</div>
+
+{% else %}
+<div class="container-fluid items-container">
+    <h2>Cart</h2>
+</div>
+
+<div class="container-fluid items-container cart-items-container">
+    <div class="cart-summary">
+        <h5 class="cart-summary-table">Order Summary</h5>
+        <table class="table cart-summary-table">
+            <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <!-- Displays all items within the cart under the Order Summary -->
+            {% for item in cart %}
+                <tr>
+                    <td>{{ item.name.title() }}</td>
+                    <td>{{ quantity[cart.index(item)] }}</td>
+                    <td>${{ "%.2f"|format(item.price * quantity[cart.index(item)]) }}</td>
+                </tr>
+            {% endfor %}
+                <tr>
+                    <th></th>
+                    <th>Total Price:</th>
+                    <th>${{ total_price }}</th>
+                </tr>
+        </table>
+        <form class="order" method="POST">
+            <button type="submit" class="btn btn-outline-primary order-button" name="order_button">
+                Place Order
+            </button>
+        </form>
+    </div>
+    <!-- Each item in the cart is displayed with all its details -->
+    {% for item in cart %}
+    <div class="row item-border">
+        <div class="col-lg-4 col-md-12">
+            <img class="cart-image-thumbnail" src="{{ url_for('static', filename=item.name+'.jpg') }}">
+        </div>
+        <div class="col-lg-6 col-md-9">
+            <h5 class="cart-item-heading">{{ item.name.title() }}</h5>
+            <p class="cart-item-description">{{ item.description }}</p>
+            <form class="cart-quantity" method="POST">
+                <label>Quantity: </label>
+                <input class="cart-quantity-input" name="{{item.name}}_quantity" value={{ quantity[cart.index(item)] }}>
+        </div>
+        <div class="col-lg-2 col-md-1">
+            <h5 class="cart-pricing">${{ "%.2f"|format(item.price * quantity[cart.index(item)]) }}</h5>
+
+            <button type="submit" class="btn btn-outline-primary update-button" name="update_button"
+                        value={{item.name}}>
+                    Update
+            </button>
+            </form>
+        </div>
+        <div class="row cart-white-space"></div>
+    </div>
+    {% endfor %}
+
+
+</div>
+
+
+
+{% endif %}
+{% endblock %}

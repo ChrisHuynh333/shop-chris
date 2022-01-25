@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid items-container">
+    <p>< <a class="link-unstyled black-hyperlink" href="{{ url_for('home') }}">Home</a>
+        / <a class="link-unstyled black-hyperlink" href="{{ url_for('all_items') }}">All Items</a>
+        / {{ products[0].category_title.title() }}
+    </p>
+    <h2> {{ products[0].category_title }}</h2>
+</div>
+
+<form method="post" action="{{ url_for('products', category=products[0].category) }}">
+    <div class="container-fluid items-container">
+    {% for product in products %}
+        <div class="row product-item-border">
+            <div class="col-lg-4">
+                <a href="{{url_for('individual_product', category=product.category, item=product.name) }}">
+                    <img class="category-image-thumbnail" src="{{ url_for('static', filename=product.name+'.jpg') }}">
+                </a>
+            </div>
+            <div class="col-lg-6 cold-md-7">
+                <a class="link-unstyled black-hyperlink"
+                   href="{{url_for('individual_product', category=product.category, item=product.name) }}">
+                    <h5 class="cart-item-heading">{{ product.name.title() }}</h5>
+                </a>
+                <p class="cart-item-description">{{ product.description }}</p>
+            </div>
+            <div class="col-lg-2 col-md-5">
+                <h5 class="cart-pricing">${{ "%.2f"|format(product.price) }}</h5>
+
+                <button type="submit" class="btn btn-outline-primary generic-button add-button-product-page"
+                        name="add_button" value={{product.name}}>
+                    Add
+                </button>
+            </div>
+            <div class="row cart-white-space"></div>
+        </div>
+    {% endfor %}
+    </div>
+</form>
+
+{% endblock %}

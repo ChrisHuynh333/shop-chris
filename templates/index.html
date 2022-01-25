@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container-fluid items-container front-page-header">
+        <!--
+        If the user is not logged in, they'll get a generic greeting with links to Log In or Register. Otherwise,
+        the home page will greet them with their name and only the Shop Now link
+        --->
+        {% if not logged_in %}
+        <h1>Welcome to Shop Chris!</h1>
+        <h4>Where you'll save more when you shop more.</h4>
+        <br>
+        <br>
+        <h4>Get Started Now</h4>
+        <p><a class="link-unstyled black-hyperlink" href="{{ url_for('login') }}">Log In</a>
+            / <a class="link-unstyled black-hyperlink" href="{{ url_for('register') }}">Register</a>
+            / <a class="link-unstyled black-hyperlink" href="{{ url_for('all_items') }}">Shop</a>
+        </p>
+        {% else %}
+        <h1>Welcome Back, {{ user.name.title() }}!</h1>
+        <h5 class="shop-now-text">
+            <a class="link-unstyled black-hyperlink" href="{{ url_for('all_items') }}">Shop Now</a>
+        </h5>
+        {% endif %}
+    </div>
+    <!-- Carousel for featured-items -->
+    <section id="featured-items">
+      <div class="front-page-featured-items">
+        <h3>Featured Items</h3>
+      </div>
+        <div class="container-fluid items-container">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="row">
+                  <!-- We split the 8 featured items into two sets of 4 for each carousel page -->
+                    {% for i in range(0, 4) %}
+                      <div class="col-lg-3 col-md-6 text-center">
+                          <a href="{{url_for('individual_product', category=featured_items[i].category, item=featured_items[i].name) }}">
+                              <img class="featured-items-image-thumbnail carousel-image" src="{{ url_for('static', filename=featured_items[i].img) }}">
+                          </a>
+                        <h5 class="all-items-name">{{ featured_items[i].name.title() }}</h5>
+                      </div>
+                    {% endfor %}
+                    </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="row">
+                  {% for i in range(5, 9) %}
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <a href="{{url_for('individual_product', category=featured_items[i].category, item=featured_items[i].name) }}">
+                            <img class="featured-items-image-thumbnail carousel-image" src="{{ url_for('static', filename=featured_items[i].img) }}">
+                        </a>
+                        <h5 class="all-items-name">{{ featured_items[i].name.title() }}</h5>
+                    </div>
+                  {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="front-page-featured-categories">
+        <h3>Featured Categories</h3>
+    </div>
+    <div class="container-fluid items-container featured-categories-images">
+         <div class="row">
+             {% for category in categories %}
+             {% set count = categories.index(category) %}
+                <div class="col-lg-4 col-md-6 text-center">
+                    <a href="{{url_for('products', category=category) }}">
+                        <img class="home-categories-image-thumbnail carousel-image" src="{{ url_for('static', filename=category+'.jpg') }}">
+                    </a>
+                    <h5 class="all-items-name">{{ categories_titles[count] }}</h5>
+                </div>
+             {% endfor %}
+        </div>
+    </div>
+
+
+
+{% endblock %}

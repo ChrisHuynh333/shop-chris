@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+
+<div class="container-fluid images-container">
+    <h2 class="login-header">
+        Welcome to Shop Chris!
+        <br>
+        Please enter the following details for your new account.
+    </h2>
+    <div class="col-lg-8 col-md-10 mx-auto content">
+        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+    </div>
+</div>
+{% endblock %}
