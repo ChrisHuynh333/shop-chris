@@ -23,8 +23,8 @@ The store's functionality includes:
 
 # Improvements to be made
   - I used raw HTML and CSS bootstrap coding of my own rather than using a template/theme as I wanted to get more practice with HTML/CSS. Therefore, this is an area that can be improved on the website.
-  - The code should be refactored and 'fixed' further. Although functional, many of the list elements should be condensed from multiple lists into single dictionaries.
   - In addition to the above point, the website's responsiveness can be improved.
+  - The code should be refactored and 'fixed' further. Although functional, many of the list elements should be condensed from multiple lists into single dictionaries.
   - The addition of a front-end language would help better the quality of life for the website.
     - This would include not refreshing the page to the top every time an item is updated or added to cart.
     - Pop-up on the cart every time an item is added.
