@@ -14,7 +14,7 @@ The store's functionality includes:
 # Known Bugs
   - After completing an order, and being redirected to the order_complete page which states "Order Complete. Order #xx ...", the user can refresh on this page, which will generate a new empty order.
   - On a product page, after adding an item to the cart, the user can refresh, which will prompt a resubmission confirmation through the browser, and if once confirmed, another single quantity of the same item will be added to the cart.
-  - The following an issue when the site was deployed, and not when hosted locally.
+  - The following is an issue when the site was deployed, and not when hosted locally.
     - After website deployment, the website's cart is extremely buggy. It's almost like the cart is refreshing between different instances. 
     -   Examples of this include:
       -    Adding to cart and updating cart will sometimes delete items/change the cart quantities.
