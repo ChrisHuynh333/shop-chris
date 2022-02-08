@@ -14,7 +14,7 @@ The store's functionality includes:
 # Known Bugs
   - After completing an order, and being redirected to the order_complete page which states "Order Complete. Order #xx ...", the user can refresh on this page, which will generate a new empty order.
   - On a product page, after adding an item to the cart, the user can refresh, which will prompt a resubmission confirmation through the browser, and if once confirmed, another single quantity of the same item will be added to the cart.
-  - The following is an issue when the site was deployed, and not when hosted locally.
+  - The following is an issue when the site was deployed, and not when hosted locally. This most likely requires the addition of sessions to fix.
     - After website deployment, the website's cart is extremely buggy. It's almost like the cart is refreshing between different instances. 
     -   Examples of this include:
       -    Adding to cart and updating cart will sometimes delete items/change the cart quantities.
@@ -25,10 +25,9 @@ The store's functionality includes:
   - I used raw HTML and CSS bootstrap coding of my own rather than using a template/theme as I wanted to get more practice with HTML/CSS. Therefore, this is an area that can be improved on the website.
   - In addition to the above point, the website's responsiveness can be improved.
   - The code should be refactored and 'fixed' further. Although functional, many of the list elements should be condensed from multiple lists into single dictionaries.
-  - The addition of a front-end language would help better the quality of life for the website.
+  - The addition of a AJAX would help better the quality of life for the website.
     - This would include not refreshing the page to the top every time an item is updated or added to cart.
     - Pop-up on the cart every time an item is added.
-    - I'm assuming the bugs happening on the site after deployment could be resolved with the addition of a front-end language to 'smooth' navigation/browsing. 
 
 # Technologies Used
   - Python
